@@ -47,10 +47,24 @@ import javafx.scene.control.TextField;
             assert Suicide != null : "fx:id=\"Suicide\" was not injected: check your FXML file 'suicideCasesSurveyView.fxml'.";
 
         }
+        @FXML
+        private void Submit(){
+            try{
+                SuicideRateOverview newSuicide = new SuicideRateOverview(CountryTextField.getText(),
+                        yearPicker.getValue().getYear(), SexComboBox.getValue(), AgeTextArea.getAnchor(), Suicide.getAnchor(),generationDropDown.getValue());
+
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+
+            }
+        }
 
         @Override
         public void initialize(URL location, ResourceBundle resources) {
             SexComboBox.getItems().addAll(SuicideRateOverview.getsex());
+            generationDropDown.getItems().addAll(SuicideRateOverview.getGenerationValue());
+
         }
     }
 

@@ -1,7 +1,6 @@
-import java.lang.reflect.Array;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,7 +20,10 @@ public class SuicideRateOverview {
         setAge(age);
         setSuicideNum(suicideNum);
         setGeneration(generation);
+        id = DBCases.insertNewCases(this);
     }
+
+
 
     public String getCountry() {
         return country;
@@ -36,10 +38,12 @@ public class SuicideRateOverview {
     }
 
     public void setYear(int year) {
-        this.year = year;
+            this.year = year;
+
     }
 
-    public static List<String> getsex(){
+    public static List<String>
+    getsex(){
         List<String> sex = Arrays.asList("male","female","other");
         Collections.sort(sex);
         return sex;
@@ -74,13 +78,26 @@ public class SuicideRateOverview {
     public void setSuicideNum(float suicideNum) {
         this.suicideNum = suicideNum;
     }
+    public static List<String>
+    getGenerationValue(){
+        List<String> generation = Arrays.asList("Generation x","Generation Y","Generation Z","Boomers");
+        Collections.sort(generation);
+        return generation;
+    }
+
 
     public String getGeneration() {
         return generation;
     }
 
+
     public void setGeneration(String generation) {
-        this.generation = generation;
+        if(getGeneration().contains(generation) ) {
+            this.generation = generation;
+        }
+        else{
+            throw new IllegalArgumentException("invalid option");
+        }
     }
 
     public int getId() {
