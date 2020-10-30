@@ -107,4 +107,8 @@ public class SuicideRateOverview {
     public void setId(int id) {
         this.id = id;
     }
+    public String toString(){
+
+        return String.format(" this %s has %d number of suicide",country,suicideNum);
+    }
 }
