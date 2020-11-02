@@ -1,6 +1,7 @@
-import com.mysql.cj.x.protobuf.MysqlxPrepare;
-
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DBCases {
 
@@ -42,5 +43,47 @@ public static int  insertNewCases( SuicideRateOverview newCases) throws SQLExcep
         return id;
     }
     }
-}
+    /**
+     * TO RETURN ALL DATA
+     */
+    public static ArrayList<SuicideRateOverview> getAllDataFromDB() throws SQLException {
+        ArrayList<SuicideRateOverview> Overview = new ArrayList<>();
+        Connection conn = null;
+        Statement statement   = null;
+        ResultSet resultSet = null;
+        try{
+            conn = DriverManager.getConnection("jdbc:mysqlServer://localhost:3306/SuicideCasesSurvey",user,password);
+            statement = conn.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM survey LIMIT 20");
+
+            while(resultSet.next()) {
+                SuicideRateOverview newData = new SuicideRateOverview(
+                        resultSet.getInt("id"),
+                        resultSet.getString("country"),
+
+                        resultSet.getInt("year"),
+                        resultSet.getString("sex"),
+                        resultSet.getInt("age"),
+                        resultSet.getFloat("suicideNum"),
+                        resultSet.getString("gender")
+
+
+                ) ;
+                Overview.add(newData);
+                           }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            if (conn != null)
+                conn.close();
+            if (statement != null)
+                statement.close();
+            if (resultSet != null)
+                resultSet.close();
+            return Overview;
+        }
+    }
+
+    }
+
 

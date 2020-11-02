@@ -13,6 +13,8 @@ public class SuicideRateOverview {
     private float suicideNum;
     private String generation;
 
+
+
     public SuicideRateOverview(String country, int year, String sex, int age, float suicideNum, String generation) throws SQLException {
         setCountry(country);
         setYear(year);
@@ -23,7 +25,15 @@ public class SuicideRateOverview {
         id = DBCases.insertNewCases(this);
     }
 
-
+    public SuicideRateOverview(int id, String country, int year, String sex, int age, float suicideNum, String generation) {
+        this.id = id;
+        this.country = country;
+        this.year = year;
+        this.sex = sex;
+        this.age = age;
+        this.suicideNum = suicideNum;
+        this.generation = generation;
+    }
 
     public String getCountry() {
         return country;
@@ -87,6 +97,7 @@ public class SuicideRateOverview {
 
 
     public String getGeneration() {
+
         return generation;
     }
 
